@@ -1,0 +1,18 @@
+!!! 5
+%html
+  %head
+    %meta{content: "IE=edge", "http-equiv" => "X-UA-Compatible"}/
+    %meta{charset: "utf-8"}/
+    %meta{name: "viewport", content: "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"}/
+    %title= current_page.data.exhibition_title || 'Untitled Exhibition'
+    = stylesheet_link_tag :exhib
+    = javascript_include_tag :exhib
+  %body{ class: 'not-loaded', data: current_page.data }
+    = yield
+
+    %script{type: 'text/javascript', src: 'javascripts/lib/jquery-2.1.4.min.js'}
+    %script{type: 'text/javascript', src: 'javascripts/lib/jquery-ui-1.11.4.min.js'}
+    %script{type: 'text/javascript', src: 'javascripts/lib/jquery-ui-touchpunch-0.2.3.js'}
+    %script{type: 'text/javascript', src: 'javascripts/lib/jquery.panzoom.min.js'}
+    %script{type: 'text/javascript', src: 'javascripts/lib/masonry.min.js'}
+    %script{type: 'text/javascript', src: 'javascripts/exhib.js'}

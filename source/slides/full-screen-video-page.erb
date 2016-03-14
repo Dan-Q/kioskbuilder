@@ -1,0 +1,19 @@
+---
+id: full-screen-video-page    # The id is used when linking to this slide - if it's not specified, the title will be used instead.
+full-screen: true             # Set full-screen to true to make a slide that covers the navigation bar.
+triggers:
+  after_enter: |              # After entering this slide, play the video
+    $('video:visible')[0].play();
+  before_exit: |              # Before exiting this slide, pause the video
+    $('video:visible')[0].pause();
+  after_exit: |               # After exiting this slide, rewind the video
+    $('video:visible')[0].currentTime = 0;
+
+# This slide is a full screen video page. Note that it doesn't have a <section> tag, because a <section> tag imposes a margin around
+# the content and we want this video to be flush with the edges of the screen.
+---
+
+<video src="videos/your-video-goes-here.mp4" loop></video>
+<a href="full-screen-page" style="position: absolute; top: 10px; left: 10px;">
+  <button>&laquo; Back</button>
+</a>

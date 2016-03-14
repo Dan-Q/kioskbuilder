@@ -1,0 +1,40 @@
+---
+id: slideshow-02                  # The id is used when linking to this slide - if it's not specified, the title will be used instead.
+highlight_nav_id: slideshow-start # We keep the root "Slideshow" tab highlighted throughout the slideshow.
+triggers:
+  after_enter: |                  # After entering this slide, prepare a countdown to the next slide and set up a key-catcher to catch the 'U' key
+    countdown_to_next_slide = setTimeout(function(){
+      goToSlide('slideshow-03');
+    }, 3000);
+
+    $('body').on('keyup', function(e){
+      if(e.keyCode == 85) goToSlide('slideshow-secret');
+    });
+  before_exit: |                  # Before exiting this slide, kill the countdown if it's already running, and stop listening for keys
+    clearTimeout(countdown_to_next_slide);
+    $('body').off('keyup');
+
+
+# This is the second automatically-advancing page in the slideshow. It's not been made full-screen, so it's possible for the user to
+# "escape" from it by clicking on a different navigation tab. Or they can sit and watch...
+#
+# This slide contains a keyboard-activated shortcut to jump to a different slide. The combination of countdown timers and keyboard
+# controls can be used to make automatic slideshow presentations that can be interrupted to jump to particular places. Note that the
+# keyup listener is turned "off" before exiting the slide, so that pressing 'U' on other subsequent slides doesn't trigger the event!
+---
+
+<section>
+
+  <hgroup>
+    <h1>Slideshow</h1>
+    <h2>Second Slide</h2>
+  </hgroup>
+  
+  <p>
+    You only get three seconds on <em>this</em> slide. Read it quickly!
+  </p>
+  <p>
+    This slide has a secret bonus feature: if you press the 'U' key on your keyboard, you'll jump to a secret slide!
+  </p>
+
+</section>

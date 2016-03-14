@@ -1,0 +1,22 @@
+%main
+  #pages
+    - Dir::glob('source/slides/*').to_a.each do |f|
+      = partial 'slide', locals: { filename: f }
+
+  %nav
+    - Dir::glob('source/slides/*').to_a.each do |f|
+      = partial 'nav', locals: { filename: f }
+
+#image-viewer{ style: 'display: none;' }
+  #image-viewer-image-wrapper
+    %img
+  #image-viewer-controls
+    %a{ href: '#', class: "js-control close" } ↩ back
+    %a{ href: '#', class: "js-control zoom-in" } +
+    %a{ href: '#', class: "js-control zoom-out" } -
+    %a{ href: '#', class: "js-control prev" } &laquo;
+    %a{ href: '#', class: "js-control next" } &raquo;
+  #image-viewer-caption
+
+#video-caption{ style: 'display: none;' }
+%progress#video-progress{ style: 'display: none;', max: 1000 }

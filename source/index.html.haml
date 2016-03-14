@@ -1,0 +1,12 @@
+---
+exhibition_title: Template Exhibition         # The title of the entire exhibition. Be sure to set this.
+start_slide_id: home                          # Optionally provide the id of the slide to start on (it'll use the first one, if you don't).
+
+# Kiosk Browser Lockdown settings (all optional):
+day_begins_at: 9                              # What hour of the day to brighten the screen
+day_ends_at: 21                               # What hour of the day to darken the screen
+day_brightness: 150                           # Target brightness during opening hours, out of 255
+night_brightness: 0                           # Target brightness outside of opening hours, out of 255
+---
+
+= partial 'root', locals: { settings: current_page.data }

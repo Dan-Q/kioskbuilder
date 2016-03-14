@@ -1,0 +1,5 @@
+- frontmatter, content = read_slide(filename)
+
+- if frontmatter[:title]
+  %a{ href: frontmatter[:id] }
+    = frontmatter[:title]

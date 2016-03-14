@@ -1,0 +1,29 @@
+---
+id: slideshow-01                  # The id is used when linking to this slide - if it's not specified, the title will be used instead.
+highlight_nav_id: slideshow-start # We keep the root "Slideshow" tab highlighted throughout the slideshow.
+triggers:
+  after_enter: |                  # After entering this slide, prepare a countdown to the next slide
+    countdown_to_next_slide = setTimeout(function(){
+      goToSlide('slideshow-02');
+    }, 5000);
+  before_exit: |                  # Before exiting this slide, kill the countdown if it's already running
+    clearTimeout(countdown_to_next_slide);
+
+
+# This is the first automatically-advancing page in the slideshow. It's not been made full-screen, so it's possible for the user to
+# "escape" from it by clicking on a different navigation tab. Or they can sit and watch...
+---
+
+<section>
+
+  <hgroup>
+    <h1>Slideshow</h1>
+    <h2>First Slide</h2>
+  </hgroup>
+  
+  <p>
+    This slideshow automatically moves through the pages, one at a time. Sit and watch. It'll be about
+    five seconds.
+  </p>
+
+</section>

@@ -1,0 +1,459 @@
+// ---------------- CONSTANTS (change these for your exhibition!) ---------------- 
+
+// Dimensions of the screen: some examples are given:
+// Samsung Kiosk: 1280px by 800px
+$screen-width: 1280px
+$screen-height: 800px
+
+// Turning The Pages kiosk: 1280px by 1024px
+//$screen-width: 1280px
+//$screen-height: 1024px
+
+// Heritage window: 3200px by 1080px
+//$screen-width: 3200px
+//$screen-height: 1080px
+
+// Height of the navigation bar
+$nav-height: 80px
+
+// Should the navigation bar appear below the slides (0 for no, 1 for yes)
+$nav-beneath-slides: 1
+
+// Font sizes
+$base-font-size: 18px
+$base-line-height: 140%
+
+// Colour of the background of the exhibition (used during crossfades) and of slides
+$exhibition-background-color: #ffffff
+$slide-background-color: #ffffff
+
+// Colour of items in the navigations menu
+$nav-text-color: #949495
+$nav-background-color: #ffca72
+$nav-active-text-color: #ffca72
+$nav-active-background-color: #00AD82
+$nav-item-border-color: #eeeeee
+
+// Gallery settings
+$gallery-figure-width: 168px
+
+// Buttons
+$button-background-color: #00AD82
+$button-text-color: #ffffff
+$button-font-size: 140%
+
+
+
+// -------------------------------------------------------------------------------
+// -------------------------------------------------------------------------------
+// -------------------------------------------------------------------------------
+// -------------------------------------------------------------------------------
+// -------------------------------------------------------------------------------
+// -------------------------------------------------------------------------------
+
+
+
+
+
+
+// ------------------ CALCULATED VARIABLES (don't change these!) -----------------
+
+$slide-height: $screen-height - $nav-height
+
+// ------------------------------------ FONTS ------------------------------------
+
+// Lato is a good approximation of Gill Sans
+@import url(lib/lato.css)
+
+// ------------------------------------- CORE ------------------------------------
+
+html, button
+  font-family: 'Lato', 'Open Sans', sans-serif
+
+html
+  font-size: $base-font-size
+  line-height: $base-line-height
+  box-sizing: border-box
+
+html, body
+  margin: 0
+  height: $screen-height
+  background: $exhibition-background-color
+
+\:focus
+  outline: unset
+
+a
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0)
+  -webkit-tap-highlight-color: transparent
+
+h1
+  font-size: 3rem
+  margin: 0.9rem 0
+  line-height: 150%
+
+h2
+  font-size: 1.75rem
+  margin: 0.6rem 0
+  line-height: 140%
+
+h3
+  font-size: 1.3rem
+  margin: 0.39rem 0
+  line-height: 120%
+
+video
+  background: black
+
+// -------------- FOUC-BREAKER (prevents flash of unstyled content) --------------
+
+body.not-loaded *
+  visibility: hidden
+
+// --------------------------------- MAIN LAYOUT ---------------------------------
+
+main
+  display: flex
+  flex-direction: column
+
+  #pages
+    order: 1
+    height: $slide-height
+    max-height: $slide-height
+    overflow: hidden
+
+    article
+      display: flex
+      justify-content: space-between
+      background: $slide-background-color
+      height: $slide-height
+      max-height: $slide-height
+
+      section
+        width: 100%
+        margin: 0.5rem 1rem
+
+      &[data-full-screen]
+        position: absolute
+        top: 0
+        height: $screen-height
+        max-height: $screen-height
+        width: $screen-width
+
+      > video
+        position: absolute
+        width: $screen-width
+        max-height: $slide-height
+
+    article[data-full-screen]
+
+      > video
+        width: $screen-width
+        height: $screen-height
+        max-width: $screen-width
+        max-height: $screen-height
+        background: black
+
+    img
+      max-height: $slide-height
+
+  nav
+    order: $nav-beneath-slides
+    height: $nav-height
+    width: 100%
+    display: flex
+
+    a
+      flex: 1 1 auto
+      line-height: $nav-height
+      text-align: center
+      transition: background-color 0.5s, color 0.5s
+      color: $nav-text-color
+      text-decoration: none
+      font-size: 1.6rem
+      border-left: 1px solid $nav-item-border-color
+      background: $nav-background-color
+      color: rgba(29, 29, 27, 1)
+
+      &:first
+        border-left: 0
+
+      &.active
+        background: $nav-active-background-color
+        color: $nav-active-text-color
+
+      img
+        vertical-align: middle
+
+// --------------------------------- EASY LAYOUT ---------------------------------
+
+.row
+  display: flex
+  justify-content: space-around
+
+// ----------------------------------- BUTTONS -----------------------------------
+
+button
+  background-image: linear-gradient(to bottom, lighten($button-background-color, 10%), $button-background-color)
+  border-radius: 5px
+  box-shadow: 0px 1px 3px #666666
+  color: $button-text-color
+  font-size: $button-font-size
+  padding: 10px 20px 14px 20px
+  text-decoration: none
+  border: 0
+
+
+// ---------------------------------- GALLERIES ----------------------------------
+
+.gallery
+  display: flex
+  flex-wrap: wrap
+  align-content: flex-start
+
+  figure
+    width: $gallery-figure-width
+
+    .full
+      display: none
+
+
+/* Gallery pages and the image viewer
+
+
+
+.gallery-section
+  margin: 0 auto
+  img
+    float: left
+    max-width: 200px
+    margin-right: 4px
+
+.precached-gallery-image
+  display: none
+
+.gallery-item
+  padding: 4px
+  margin-bottom: 4px
+  background: #00AD82 url('../images/more.png') bottom right no-repeat
+  color: rgba(255, 202, 114, 1)
+  overflow: none
+  width: 200px
+  height: 200px
+  cursor: pointer
+  &.zoomed
+    width: 414px
+  overflow: hidden
+
+/* Image viewer
+
+#image-viewer
+  position: absolute
+  top: 0
+  left: 0
+  width: 100%
+  height: 100%
+  max-width: 100%
+  max-height: 100%
+  overflow: hidden
+  background-color: #000000
+  background-position: center center
+  background-repeat: no-repeat
+  background-image: url('../images/spinner.gif')
+  img
+    margin: 0 auto
+    transition: margin-left 0.5s
+
+#image-viewer-controls a, #image-viewer-caption
+  background: rgba(120, 120, 120, 0.7)
+  border-radius: 1rem
+  color: rgba(255, 255, 255, 0.9)
+  display: block
+  position: fixed
+  padding: 0 0.5rem
+  text-decoration: none
+  min-width: 2rem
+  text-align: center
+
+#image-viewer-controls
+  line-height: 3rem
+  font-size: 28px
+  .close
+    top: 25px
+    left: 25px
+  .zoom-in
+    top: 85px
+    left: 85px
+  .zoom-out
+    top: 85px
+    left: 25px
+  .prev
+    bottom: 25px
+    left: 25px
+  .next
+    bottom: 25px
+    right: 25px
+
+#image-viewer-caption
+  top: 25px
+  right: 25px
+  padding: 0.25rem 1rem
+  text-align: left
+  transition: opacity 0.25s
+  max-width: 40%
+  font-size: 90%
+  line-height: 125%
+  h1
+    font-size: 1rem
+    line-height: 110%
+
+/* Videos
+
+#video-caption
+  position: absolute
+  left: 0
+  width: 100%
+  height: $nav-height
+  overflow: hidden
+  color: #ffffff
+  background: #000000 url('../images/pause-play.png') 0px (0 - $nav-height) no-repeat
+  cursor: pointer
+  opacity: 0.75
+  transition: background-position 0.25s
+  font-size: 0.8rem
+  line-height: 110%
+  &.audio
+    width: $nav-height
+  &.playing
+    width: $nav-height
+    background-position: 0px 0px
+  h1, p
+    margin: 0.25rem 0.5rem 0.25rem 100px
+    line-height: 130%
+  h1
+    font-size: 1.1rem
+
+#video-progress
+  position: absolute
+  top: 0
+  width: 100%
+  border: 0
+  height: 6px
+  &.video
+    top: 0
+    height: 6px
+  &.audio
+    bottom: $nav-height
+    height: $nav-height
+    width: 100%
+    padding-left: $nav-height
+  &::-webkit-progress-bar
+    background-color: transparent
+  &::-webkit-progress-value
+    background-color: #000000
+  &.audio::-webkit-progress-value
+    background: rgba(0, 0, 0, 0.25)
+
+.audio-player
+  float: right
+
+#pages
+
+  .alongside-audio-accompanying-images
+    padding-right: 700px
+
+  .audio-accompanying-images img
+    position: absolute
+    top: 0
+    right: 0
+    opacity: 0
+    transition: opacity 2s
+    height: 100%
+    &.shown
+      opacity: 1
+
+
+/* Slick-less tabs
+
+/* h3 highlight instructions
+
+.text-page h3
+  background: #00AD82
+  padding: 15px 25px
+  margin-right: 585px
+  color: rgba(29, 29, 27, 1)
+
+.external-url
+  color: #00AD82
+
+/* "Popup" (e.g. video) buttons
+
+.button-to-popup .button
+  display: block
+  margin: 0 auto
+  font-size: 1.6rem
+  border: 1px solid #eeeeee
+  background: rgba(255, 202, 114, 1)
+  color: rgba(29, 29, 27, 1)
+  border-radius: 0.25em
+  padding: 0.35em 1em
+
+.button-content
+  position: absolute
+  top: 0
+  left: 0
+  width: $screen-width
+  height: $screen-height
+  background: black
+  z-index: 10
+  transition: left 0.5s
+  &.from-left
+    left: 0 - $screen-width
+  &.from-right
+    left: $screen-width
+  &.visible
+    left: 0
+
+.round.button
+  width: 100px
+  height: 100px
+  line-height: 100px
+  text-align: center
+  background: black
+  border-radius: 50px
+  color: white
+  padding: 0
+  font-size: 100px
+  border: 2px solid #777
+  text-decoration: none
+
+.button.top-right
+  position: absolute
+  top: 15px
+  right: 15px
+
+.button-content
+  .close.button
+    opacity: 0
+    transition: opacity 1s 0.75s
+  &.visible .close.button
+    opacity: 0.75
+
+/* Phat Menu boxes
+
+.phat-menu
+  display: flex
+  justify-content: center
+  a
+    text-decoration: none
+    background: #00AD82
+    border: 4px solid #00AD82
+    color: #FFCA72
+    margin: 0.75em 1.5em
+    text-align: center
+    h3
+      margin-right: 0
+      font-size: 1.1rem
+      line-height: 110%
+      color: #FFCA72
+      padding: 0.5em

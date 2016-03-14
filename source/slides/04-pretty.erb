@@ -1,0 +1,25 @@
+---
+title: Pretty Page              # The title appears in the menu bar - leave it blank to hide from the menu.
+id: pretty                      # The id is used when linking to this slide - if it's not specified, the title will be used instead.
+triggers:
+  after_enter: |              # After entering this slide, play the video
+    $('video:visible')[0].play();
+  before_exit: |              # Before exiting this slide, pause the video
+    $('video:visible')[0].pause();
+  after_exit: |               # After exiting this slide, rewind the video
+    $('video:visible')[0].currentTime = 0;
+
+# This page demonstrates the use of absolutely-positioned layers. In this case, a video background is used and the text superimposed
+# over the top of it.
+---
+
+<video src="videos/blue-motion-background.mp4" loop></video>
+
+<section style="position: absolute; padding: 40px 60px;">
+
+  <h1 style="color: white; text-shadow: 1px 1px gray;">Pretty Page</h1>
+  <p style="color: white; text-shadow: 1px 1px gray;">
+    Woo! Whee!
+  </p>
+
+</section>
